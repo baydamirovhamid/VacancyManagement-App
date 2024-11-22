@@ -28,6 +28,8 @@ namespace VacancyManagementApp.API.Controllers
             }
             return BadRequest(response.Message);
         }
+
+
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetByOwner([FromRoute]GetFileQueryRequest getFileQueryRequest)
         {

@@ -46,9 +46,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
             LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false,
 
+<<<<<<< HEAD
             NameClaimType = ClaimTypes.Name
             
             //You can get the value of the Name claim in JWT using the User.Identity.Name property.
+=======
+            NameClaimType = ClaimTypes.Name 
+>>>>>>> ba0b12033145760089b2021797f080099fe1e6ee
         };
     });
 

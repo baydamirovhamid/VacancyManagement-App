@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using VacancyManagementApp.Application.Abstractions.Services;
 using VacancyManagementApp.Application.Repositories;
 using VacancyManagementApp.Domain.Entities;
+using VacancyManagementApp.Domain.Entities.Identity;
 
 namespace VacancyManagementApp.Application.Features.Commands.UploadFile
 {
@@ -9,11 +11,15 @@ namespace VacancyManagementApp.Application.Features.Commands.UploadFile
     {
         private readonly IFileUploadService _fileUploadService;
         private readonly IFileUploadWriteRepository _fileUploadWriteRepository;
+        private readonly UserManager<VacancyManagementApp.Domain.Entities.Identity.AppUser> _userManager;
 
-        public UploadFileCommandHandler(IFileUploadService fileUploadService, IFileUploadWriteRepository fileUploadWriteRepository)
+        public UploadFileCommandHandler(IFileUploadService fileUploadService,
+            IFileUploadWriteRepository fileUploadWriteRepository,
+            UserManager<Domain.Entities.Identity.AppUser> userManager)
         {
             _fileUploadService = fileUploadService;
             _fileUploadWriteRepository = fileUploadWriteRepository;
+            _userManager = userManager;
         }
 
         public async Task<UploadFileCommandResponse> Handle(UploadFileCommandRequest request, CancellationToken cancellationToken)
@@ -30,7 +36,8 @@ namespace VacancyManagementApp.Application.Features.Commands.UploadFile
             }
 
             string fileName = Guid.NewGuid() + extension;
-            string filePath = await _fileUploadService.SaveFileAsync(request.File, fileName);
+            var user=await _userManager.FindByIdAsync(request.AppUserId);
+            string filePath = await _fileUploadService.SaveFileAsync(request.File, fileName,user.Email );
 
             var uploadedFile = new UploadedFile
             {
