@@ -17,8 +17,8 @@ namespace VacancyManagementApp.Domain.Entities
         public string PhoneNumber { get; set; }
         public Guid VacancyId { get; set; }
         public Vacancy Vacancy { get; set; }
-        public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
         public Guid? UploadedFileId { get; set; }
         public UploadedFile? UploadedFile { get; set; }
         public List<Result> Results { get; set; }

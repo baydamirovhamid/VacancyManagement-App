@@ -14,10 +14,5 @@ namespace VacancyManagementApp.Domain.Entities
         public string FileName { get; set; }
         public string FilePath { get; set; }
         public long FileSize { get; set; }
-
-        [NotMapped]
-        public override DateTime UpdatedDate { get => base.UpdatedDate; set => base.UpdatedDate = value; }
-
-
     }
 }
