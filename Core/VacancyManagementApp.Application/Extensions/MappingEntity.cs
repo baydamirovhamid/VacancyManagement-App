@@ -8,9 +8,12 @@ using VacancyManagementApp.Application.DTOs.Result;
 using VacancyManagementApp.Application.DTOs.User;
 using VacancyManagementApp.Application.DTOs.Vacancy;
 using VacancyManagementApp.Application.Features.Commands.Answer.Create;
+using VacancyManagementApp.Application.Features.Commands.Answer.Update;
 using VacancyManagementApp.Application.Features.Commands.ApplicationForm.CreateApplicationForm;
 using VacancyManagementApp.Application.Features.Commands.AppUser.CreateUser;
 using VacancyManagementApp.Application.Features.Commands.Question.Create;
+using VacancyManagementApp.Application.Features.Commands.Question.Remove;
+using VacancyManagementApp.Application.Features.Commands.Question.Update;
 using VacancyManagementApp.Application.Features.Commands.Result;
 using VacancyManagementApp.Application.Features.Commands.Result.Update;
 using VacancyManagementApp.Application.Features.Commands.Vacancy.CreateVacancy;
@@ -78,6 +81,9 @@ namespace VacancyManagementApp.Application.Extensions
             CreateMap<RemoveVacancyResponseDto, RemoveVacancyCommandResponse>();
             CreateMap<Vacancy, RemoveVacancyResponseDto>();
 
+            CreateMap<RemoveQuestionResponseDto, RemoveQuestionCommandResponse>();
+            CreateMap<Question, RemoveQuestionResponseDto>();
+
             CreateMap<ResultResponseDto, CreateResultCommandResponse>();
             CreateMap<CreateResultCommandRequest, ResultCreateDto>();
             CreateMap<ResultCreateDto, Result>();
@@ -91,7 +97,17 @@ namespace VacancyManagementApp.Application.Extensions
 
 
             CreateMap<UploadedFile, GetFileByOwnerDto>();
-            CreateMap<GetFileByOwnerDto,GetFileQueryResponse>();
+            CreateMap<GetFileByOwnerDto, GetFileQueryResponse>();
+
+            CreateMap<UpdateQuestionCommandRequest, UpdateQuestionDto>();
+            CreateMap<UpdateQuestionDto, UpdateQuestionCommandResponse>()
+                .ForMember(dest => dest.Success, opt => opt.MapFrom(src => true))
+                .ForMember(dest => dest.Message, opt => opt.MapFrom(src => "Question updated successfully."));
+
+            CreateMap<UpdateAnswerCommandRequest, UpdateAnswerDto>();
+            CreateMap<UpdateAnswerDto, UpdateAnswerCommandResponse>()
+                .ForMember(dest => dest.Success, opt => opt.MapFrom(src => true))
+                .ForMember(dest => dest.Message, opt => opt.MapFrom(src => "Answer updated successfully."));
 
         }
     }

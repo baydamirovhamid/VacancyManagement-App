@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using VacancyManagementApp.Application.Abstractions.Services;
 using VacancyManagementApp.Application.Features.Commands.Question.Create;
+using VacancyManagementApp.Application.Features.Commands.Question.Remove;
+using VacancyManagementApp.Application.Features.Commands.Question.Update;
 using VacancyManagementApp.Application.Features.Queries.GetAllQuestions;
 
 [ApiController]
@@ -47,4 +49,20 @@ public class QuestionController : ControllerBase
         GetAllQuestionQueryResponse response = await _mediator.Send(getAllQuestionQueryRequest);
         return Ok(response);
     }
+
+    [HttpPut("update-question")]
+    public async Task<IActionResult> UpdateQuestion([FromBody] UpdateQuestionCommandRequest updateQuestionCommandRequest)
+    {
+        var response = await _mediator.Send(updateQuestionCommandRequest);
+        return Ok(response);
+    }
+
+    [HttpDelete("{Id}")]
+    public async Task<IActionResult> RemoveQuestion([FromRoute] RemoveQuestionCommandRequest removeQuestionCommandRequest)
+    {
+        RemoveQuestionCommandResponse response = await _mediator.Send(removeQuestionCommandRequest);
+        return Ok(response);
+
+    }
+
 }
