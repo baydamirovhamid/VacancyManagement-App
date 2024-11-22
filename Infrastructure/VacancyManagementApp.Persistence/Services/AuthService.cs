@@ -87,18 +87,18 @@ namespace VacancyManagementApp.Persistence.Services
             {
                 // Kullanıcı bulunamadığında yapılacak işlemler
                 // Loglama yapabilir veya kullanıcıya uygun bir mesaj döndürebilirsiniz
-                throw new Exception("Kullanıcı bulunamadı.", ex);
+                throw new Exception("User not found.", ex);
             }
             catch (AuthenticationErrorException ex)
             {
                 // Kimlik doğrulama hatası durumunda yapılacak işlemler
                 // Loglama yapabilir veya kullanıcıya uygun bir mesaj döndürebilirsiniz
-                throw new Exception("Kimlik doğrulama hatası.", ex);
+                throw new Exception("User authentication error", ex);
             }
             catch (Exception ex)
             {
                 // Diğer hatalar için genel bir hata yönetimi
-                throw new Exception("Bir hata oluştu.", ex);
+                throw new Exception("Unexpected error occured!", ex);
             }
         }
 

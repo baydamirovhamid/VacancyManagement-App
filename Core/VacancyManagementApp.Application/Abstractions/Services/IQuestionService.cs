@@ -13,6 +13,9 @@ namespace VacancyManagementApp.Application.Abstractions.Services
         Task<QuestionDto> GetQuestionByPageAsync(int page, Guid vacancyId);
         Task<QuestionResponseDto> CreateQuestionAsync(QuestionDto dto);
         List<GetAllQuestionDto> GetAllQuestion();
+
+        Task<UpdateQuestionDto> UpdateQuestionAsync(UpdateQuestionDto updateQuestionDto);
+        Task<RemoveQuestionResponseDto> RemoveQuestionAsync(Guid id);
     }
 
 }

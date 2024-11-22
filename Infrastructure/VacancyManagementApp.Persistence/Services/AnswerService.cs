@@ -9,18 +9,21 @@ using VacancyManagementApp.Application.DTOs.Answer;
 using VacancyManagementApp.Application.DTOs.Vacancy;
 using VacancyManagementApp.Application.Repositories;
 using VacancyManagementApp.Domain.Entities;
+using VacancyManagementApp.Persistence.Repositories;
 
 namespace VacancyManagementApp.Persistence.Services
 {
     public class AnswerService : IAnswerService
     {
         private readonly IAnswerWriteRepository _answerWriteRepository;
+        private readonly IAnswerReadRepository _answerReadRepository;
         private readonly IMapper _mapper;
 
-        public AnswerService(IAnswerWriteRepository answerWriteRepository, IMapper mapper)
+        public AnswerService(IAnswerWriteRepository answerWriteRepository, IMapper mapper, IAnswerReadRepository answerReadRepository)
         {
             _answerWriteRepository = answerWriteRepository;
             _mapper = mapper;
+            _answerReadRepository = answerReadRepository;
         }
 
         public async Task<CreateAnswerResponseDto> CreateAnswerAsync(CreateAnswerDto dto)
@@ -35,24 +38,22 @@ namespace VacancyManagementApp.Persistence.Services
             };
         }
 
-        public Task<List<ListVacancyDto>> GetAllVacancy()
+        public async Task<UpdateAnswerDto> UpdateAnswerAsync(UpdateAnswerDto model)
         {
-            throw new NotImplementedException();
-        }
+            var answer = await _answerReadRepository.GetByIdAsync(model.Id);
 
-        public Task<SingleVacancyDto> GetVacancyByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+            if (answer == null)
+            {
+                throw new Exception("Question not found.");
+            }
 
-        public Task<RemoveVacancyResponseDto> RemoveVacancyAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+            answer.Name = model.Name;
+            answer.QuestionId = model.QuestionId;
 
-        public Task<UpdateVacancyResponseDto> UpdateVacancyAsync(UpdateVacancyDto model)
-        {
-            throw new NotImplementedException();
+            _answerWriteRepository.Update(answer);
+            await _answerWriteRepository.SaveAsync();
+
+            return model;
         }
     }
 }

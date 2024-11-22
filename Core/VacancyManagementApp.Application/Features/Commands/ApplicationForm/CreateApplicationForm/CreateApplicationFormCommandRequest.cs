@@ -14,6 +14,6 @@ namespace VacancyManagementApp.Application.Features.Commands.ApplicationForm.Cre
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public Guid VacancyId { get; set; }
-        public Guid AppUserId { get; set; }
+        public string? AppUserId { get; set; }
     }
 }
