@@ -85,19 +85,15 @@ namespace VacancyManagementApp.Persistence.Services
             }
             catch (NotFoundUserException ex)
             {
-                // Kullanıcı bulunamadığında yapılacak işlemler
-                // Loglama yapabilir veya kullanıcıya uygun bir mesaj döndürebilirsiniz
                 throw new Exception("Kullanıcı bulunamadı.", ex);
             }
             catch (AuthenticationErrorException ex)
             {
-                // Kimlik doğrulama hatası durumunda yapılacak işlemler
-                // Loglama yapabilir veya kullanıcıya uygun bir mesaj döndürebilirsiniz
+
                 throw new Exception("Kimlik doğrulama hatası.", ex);
             }
             catch (Exception ex)
             {
-                // Diğer hatalar için genel bir hata yönetimi
                 throw new Exception("Bir hata oluştu.", ex);
             }
         }
@@ -114,19 +110,6 @@ namespace VacancyManagementApp.Persistence.Services
             }
             else
                 throw new NotFoundUserException();
-        }
-
-        public async Task ResetPasswordAsync(string email)
-        {
-            AppUser user = await _userManager.FindByEmailAsync(email);
-            if (user != null)
-            {
-                string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-                resetToken = resetToken.UrlEncode();
-
-                await _mailService.SendPasswordResetMailAsync(email, user.Id, resetToken);
-            }
         }
 
         public async Task<bool> VerifyResetTokenAsync(string resetToken, string userId)

@@ -40,17 +40,17 @@ namespace VacancyManagementApp.Infrastructure.Services
             await smtp.SendMailAsync(mail);
         }
 
-        public async Task SendPasswordResetMailAsync(string to, string userId, string resetToken)
+        public async Task SendCvSubmissionConfirmationEmailAsync(string to, string fileName)
         {
-            string resetUrl = $"https://vacancymanagementapp.com/reset-password?userId={userId}&token={resetToken.UrlEncode()}";
+            string subject = "CV Submission Confirmation";
+            string body = $@"
+            <p>Hello,</p>
+            <p>We have successfully received your CV file</p>
+            <p>Thank you for your application.</p>
+            <p>Best regards,<br>Vacancy Management Team</p>";
 
-            StringBuilder mail = new();
-            mail.AppendLine("Hello,<br><b>If you've requested a new password, please use the link below to reset it.<b><br>");
-            mail.AppendLine($"<a href='{resetUrl}'>Reset Password</a>");
-
-            await SendMailAsync(to, "Password Reset Request", mail.ToString());
+            await SendMailAsync(to, subject, body, isBodyHtml: true);
         }
-
-
     }
+
 }

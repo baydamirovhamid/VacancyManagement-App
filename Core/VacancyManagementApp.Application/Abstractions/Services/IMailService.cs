@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace VacancyManagementApp.Application.Abstractions.Services
         Task SendMailAsync(string to, string subject, string body, bool isBodyHtml = true);
         Task SendMailAsync(string[] tos, string subject, string body, bool isBodyHtml = true);
 
-        Task SendPasswordResetMailAsync(string to, string userId, string resetToken);
+        //Task SendPasswordResetMailAsync(string to, string userId, string resetToken)
+        Task SendCvSubmissionConfirmationEmailAsync(string candidateEmail, string fileName);
     }
 }

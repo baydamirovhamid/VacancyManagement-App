@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VacancyManagementApp.Application.Features.Commands.AppUser.LoginUser;
 using VacancyManagementApp.Application.Features.Commands.AppUser.RefreshTokenLogin;
-using VacancyManagementApp.Application.Features.Commands.AppUser.ResetPassword;
 using VacancyManagementApp.Application.Features.Commands.AppUser.VerifyResetToken;
 
 namespace VacancyManagementApp.API.Controllers
@@ -33,12 +32,6 @@ namespace VacancyManagementApp.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordCommandRequest resetPasswordCommandRequest)
-        {
-            ResetPasswordCommandResponse response = await _mediator.Send(resetPasswordCommandRequest);
-            return Ok(response);
-        }
 
         [HttpPost("verify-reset-token")]
         public async Task<IActionResult> VerifyResetToken([FromBody] VerifyResetTokenCommandRequest verifyResetTokenCommandRequest)
