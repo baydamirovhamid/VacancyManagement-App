@@ -9,7 +9,7 @@ namespace VacancyManagementApp.Persistence
             get
             {
                 ConfigurationManager configurationManager = new();
-                configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "C:\\Users\\99470\\Desktop\\VacancyManagementApp\\Presentation\\VacancyManagementApp.API"));
+                configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "C:\\Users\\99470\\source\\repos\\VacancyManagementApp\\Presentation\\VacancyManagementApp.API"));
                 configurationManager.AddJsonFile("appsettings.json");
 
                 var connectionString = configurationManager.GetConnectionString("DefaultConnection");
