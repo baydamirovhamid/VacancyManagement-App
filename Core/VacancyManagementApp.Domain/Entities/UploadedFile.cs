@@ -14,5 +14,7 @@ namespace VacancyManagementApp.Domain.Entities
         public string FileName { get; set; }
         public string FilePath { get; set; }
         public long FileSize { get; set; }
+        public Guid ApplicationFormId { get; set; }
+        public ApplicationForm ApplicationForm { get; set; }
     }
 }

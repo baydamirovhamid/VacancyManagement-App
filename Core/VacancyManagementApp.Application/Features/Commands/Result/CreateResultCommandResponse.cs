@@ -10,5 +10,6 @@ namespace VacancyManagementApp.Application.Features.Commands.Result
     {
         public bool Succeeded { get; set; }
         public string Message { get; set; }
+
     }
 }

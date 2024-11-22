@@ -35,7 +35,8 @@ namespace VacancyManagementApp.Persistence.Services
             return new()
             {
                 Succeeded = added,
-                Message = added?"Result created successfully":"Result cannot be created"
+                Message = added?"Result created successfully":"Result cannot be created",
+                
             };
         }
 

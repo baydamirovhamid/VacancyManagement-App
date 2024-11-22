@@ -55,7 +55,6 @@ namespace VacancyManagementApp.Persistence.Services
             {
                 await file.CopyToAsync(stream);
             }
-
             await _mailService.SendCvSubmissionConfirmationEmailAsync(candidateEmail, fileName);
 
             return filePath;
