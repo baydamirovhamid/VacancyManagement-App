@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VacancyManagementApp.Application.Features.Commands.Answer.Create;
+using VacancyManagementApp.Application.Features.Commands.Answer.Update;
 
 namespace VacancyManagementApp.API.Controllers
 {
@@ -20,6 +21,13 @@ namespace VacancyManagementApp.API.Controllers
         public async Task<IActionResult> CreateAsnwer(CreateAnswerCommandRequest createAnswerRequest)
         {
             var response = await _mediator.Send(createAnswerRequest);
+            return Ok(response);
+        }
+
+        [HttpPut("update-answer")]
+        public async Task<IActionResult> UpdateAnswer([FromBody] UpdateAnswerCommandRequest updateAnswerCommandRequest)
+        {
+            var response = await _mediator.Send(updateAnswerCommandRequest);
             return Ok(response);
         }
     }

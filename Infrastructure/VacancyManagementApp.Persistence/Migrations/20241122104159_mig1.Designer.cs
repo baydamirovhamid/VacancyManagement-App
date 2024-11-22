@@ -12,8 +12,8 @@ using VacancyManagementApp.Persistence.Contexts;
 namespace VacancyManagementApp.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241120112751_init")]
-    partial class init
+    [Migration("20241122104159_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

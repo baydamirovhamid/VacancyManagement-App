@@ -68,6 +68,45 @@ namespace VacancyManagementApp.Persistence.Services
 
             return question;
         }
+
+        public async Task<UpdateQuestionDto> UpdateQuestionAsync(UpdateQuestionDto updateQuestionDto)
+        {
+            var question = await _questionReadRepository.GetByIdAsync(updateQuestionDto.Id);
+
+            if (question == null)
+            {
+                throw new Exception("Question not found.");
+            }
+
+            question.Description = updateQuestionDto.Description;
+            question.VacancyId = updateQuestionDto.VacancyId;
+
+            _questionWriteRepository.Update(question);
+            await _writeRepository.SaveAsync();
+
+
+            return updateQuestionDto;
+        }
+
+        public async Task<RemoveQuestionResponseDto> RemoveQuestionAsync(Guid id)
+        {
+            var question = await _questionReadRepository.GetByIdAsync(id);
+            var response = new RemoveQuestionResponseDto();
+
+            if (question == null)
+            {
+                response.Succeeded = false;
+                response.Message = "Question not found.";
+                return response;
+            }
+
+            _questionWriteRepository.Remove(question);
+            await _questionWriteRepository.SaveAsync();
+
+            response.Succeeded = true;
+            response.Message = "Question deleted successfully!";
+            return response;
+        }
     }
 
 }

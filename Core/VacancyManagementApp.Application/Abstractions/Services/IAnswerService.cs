@@ -11,9 +11,6 @@ namespace VacancyManagementApp.Application.Abstractions.Services
     public interface IAnswerService
     {
         Task<CreateAnswerResponseDto> CreateAnswerAsync(CreateAnswerDto dto);
-        Task<UpdateVacancyResponseDto> UpdateVacancyAsync(UpdateVacancyDto model);
-        Task<RemoveVacancyResponseDto> RemoveVacancyAsync(Guid id);
-        Task<List<ListVacancyDto>> GetAllVacancy();
-        Task<SingleVacancyDto> GetVacancyByIdAsync(Guid id);
+        Task<UpdateAnswerDto> UpdateAnswerAsync(UpdateAnswerDto model);
     }
 }
