@@ -12,11 +12,14 @@ namespace VacancyManagementApp.Persistence.Services
         private readonly string _fileSavePath = "wwwroot/uploads";
         private readonly IFileUploadReadRepository _readRepository;
         private readonly IMapper _mapper;
+        private readonly IMailService _mailService;
 
-        public FileUploadService(IFileUploadReadRepository readRepository, IMapper mapper)
+
+        public FileUploadService(IFileUploadReadRepository readRepository, IMapper mapper, IMailService mailService)
         {
             _readRepository = readRepository;
             _mapper = mapper;
+            _mailService = mailService;
         }
 
         public async Task<GetFileByOwnerDto> GetById(Guid id)
@@ -40,7 +43,7 @@ namespace VacancyManagementApp.Persistence.Services
             return file.Length <= maxSize;
         }
 
-        public async Task<string> SaveFileAsync(IFormFile file, string fileName)
+        public async Task<string> SaveFileAsync(IFormFile file, string fileName, string candidateEmail)
         {
             if (!Directory.Exists(_fileSavePath))
             {
@@ -52,6 +55,8 @@ namespace VacancyManagementApp.Persistence.Services
             {
                 await file.CopyToAsync(stream);
             }
+
+            await _mailService.SendCvSubmissionConfirmationEmailAsync(candidateEmail, fileName);
 
             return filePath;
         }
