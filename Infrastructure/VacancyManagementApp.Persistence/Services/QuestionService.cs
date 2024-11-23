@@ -50,10 +50,9 @@ namespace VacancyManagementApp.Persistence.Services
 
         public async Task<QuestionDto?> GetQuestionByPageAsync(int page, Guid vacancyId)
         {
-            // Fetch the questions by vacancyId from the repository
             var question = await _questionReadRepository.GetWhere(q => q.VacancyId == vacancyId)
-                .Skip((page - 1) * 1)  // Skip previous questions (page - 1) * 1
-                .Take(1)  // Only take 1 question
+                .Skip((page - 1) * 1)  
+                .Take(1)  
                 .Include("Answers")
                 .Select(q => new QuestionDto
                 {

@@ -45,6 +45,8 @@ namespace VacancyManagementApp.Persistence.Services
            var entities = _readRepository.GetAll().ToList();
             return _mapper.Map<List<GetAllResultDto>>(entities);
         }
+
+
         public async Task<ResultResponseDto> UpdateResultAsync(UpdateResultDto model)
         {
             var vacancy = await _readRepository.GetByIdAsync(model.Id);

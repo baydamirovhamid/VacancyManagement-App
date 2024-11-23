@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VacancyManagementApp.Application.DTOs.Result;
-using VacancyManagementApp.Application.Features.Commands.Result;
+using VacancyManagementApp.Application.Features.Commands.Result.Create;
 using VacancyManagementApp.Application.Features.Commands.Result.Update;
 using VacancyManagementApp.Application.Features.Queries.GetAllResults;
 

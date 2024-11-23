@@ -53,7 +53,7 @@ namespace VacancyManagementApp.Persistence.Services
 
             if (result)
             {
-                await _userManager.AddLoginAsync(user, info); //AspNetUserLogins
+                await _userManager.AddLoginAsync(user, info); 
 
                 Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);
@@ -85,20 +85,17 @@ namespace VacancyManagementApp.Persistence.Services
             }
             catch (NotFoundUserException ex)
             {
-                // Kullanıcı bulunamadığında yapılacak işlemler
-                // Loglama yapabilir veya kullanıcıya uygun bir mesaj döndürebilirsiniz
-                throw new Exception("User not found.", ex);
+                throw new Exception("Kullanıcı bulunamadı.", ex);
             }
             catch (AuthenticationErrorException ex)
             {
-                // Kimlik doğrulama hatası durumunda yapılacak işlemler
-                // Loglama yapabilir veya kullanıcıya uygun bir mesaj döndürebilirsiniz
-                throw new Exception("User authentication error", ex);
+
+                throw new Exception("Kimlik doğrulama hatası.", ex);
             }
-            catch (Exception ex)
+        
+            catch (AuthenticationErrorException ex)
             {
-                // Diğer hatalar için genel bir hata yönetimi
-                throw new Exception("Unexpected error occured!", ex);
+                throw new Exception("Bir hata oluştu.", ex);
             }
         }
 

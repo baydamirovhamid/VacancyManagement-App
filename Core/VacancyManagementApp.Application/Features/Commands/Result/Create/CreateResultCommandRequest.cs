@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VacancyManagementApp.Application.Features.Commands.Result
+namespace VacancyManagementApp.Application.Features.Commands.Result.Create
 {
-    public class CreateResultCommandRequest:IRequest<CreateResultCommandResponse>
+    public class CreateResultCommandRequest : IRequest<CreateResultCommandResponse>
     {
         public int TrueQuestionCount { get; set; }
         public int FalseAnswerCount { get; set; }

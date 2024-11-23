@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VacancyManagementApp.Domain.Entities;
-using VacancyManagementApp.Domain.Entities.Identity;
+﻿using VacancyManagementApp.Domain.Entities.Identity;
 
 namespace VacancyManagementApp.Application.DTOs.Result
 {

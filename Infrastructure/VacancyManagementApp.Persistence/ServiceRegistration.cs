@@ -39,8 +39,6 @@ namespace VacancyManagementApp.Persistence
             services.AddScoped<IQuestionReadRepository, QuestionReadRepository>();
             services.AddScoped<IQuestionWriteRepository, QuestionWriteRepository>();
 
-
-
             services.AddScoped<IVacancyWriteRepository, VacancyWriteRepository>();
             services.AddScoped<IVacancyReadRepository, VacancyReadRepository>();
 
@@ -52,9 +50,6 @@ namespace VacancyManagementApp.Persistence
 
             services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
-
-
-
 
 
             services.AddScoped<IUserService, UserService>();
