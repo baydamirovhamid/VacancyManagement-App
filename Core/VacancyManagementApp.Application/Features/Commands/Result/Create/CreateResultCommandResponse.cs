@@ -8,7 +8,7 @@ namespace VacancyManagementApp.Application.Features.Commands.Result.Create
 {
     public class CreateResultCommandResponse
     {
-        //public bool Succeeded { get; set; }
-        //public string Message { get; set; }
+        public bool Succeeded { get; set; }
+        public string Message { get; set; }
     }
 }

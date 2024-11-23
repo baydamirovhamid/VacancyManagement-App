@@ -92,9 +92,12 @@ namespace VacancyManagementApp.Persistence.Services
 
                 throw new Exception("User authentication error is occured!", ex);
             }
-            catch (Exception ex)
+        
+            catch (AuthenticationErrorException ex)
             {
-                throw new Exception("Unexpected error is occured!", ex);
+                // Kimlik doğrulama hatası durumunda yapılacak işlemler
+                // Loglama yapabilir veya kullanıcıya uygun bir mesaj döndürebilirsiniz
+                throw new Exception("User authentication error", ex);
             }
         }
 
