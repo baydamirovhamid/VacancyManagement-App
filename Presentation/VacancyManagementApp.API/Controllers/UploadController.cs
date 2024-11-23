@@ -26,7 +26,7 @@ namespace VacancyManagementApp.API.Controllers
             {
                 return Ok(new { response.Message, response.FileName });
             }
-            return BadRequest(response.Message);
+            return BadRequest(response);
         }
 
 

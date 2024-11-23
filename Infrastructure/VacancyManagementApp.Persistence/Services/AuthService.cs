@@ -93,7 +93,7 @@ namespace VacancyManagementApp.Persistence.Services
                 throw new Exception("Kimlik doğrulama hatası.", ex);
             }
         
-            catch (AuthenticationErrorException ex)
+            catch (Exception ex)
             {
                 throw new Exception("Bir hata oluştu.", ex);
             }
