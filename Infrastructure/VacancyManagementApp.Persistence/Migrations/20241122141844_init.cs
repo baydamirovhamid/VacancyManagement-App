@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VacancyManagementApp.Persistence.Migrations
 {
-    public partial class mig1 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,21 +53,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UploadedFiles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileSize = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UploadedFiles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Vacancies",
                 columns: table => new
                 {
@@ -78,8 +63,7 @@ namespace VacancyManagementApp.Persistence.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     QuestionCount = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,10 +186,8 @@ namespace VacancyManagementApp.Persistence.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VacancyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UploadedFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,12 +196,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                         name: "FK_ApplicationForms_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ApplicationForms_UploadedFiles_UploadedFileId",
-                        column: x => x.UploadedFileId,
-                        principalTable: "UploadedFiles",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ApplicationForms_Vacancies_VacancyId",
@@ -236,8 +212,7 @@ namespace VacancyManagementApp.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VacancyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -260,8 +235,7 @@ namespace VacancyManagementApp.Persistence.Migrations
                     Point = table.Column<int>(type: "int", nullable: false),
                     VacancyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ApplicationFormId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -281,6 +255,28 @@ namespace VacancyManagementApp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UploadedFiles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileSize = table.Column<long>(type: "bigint", nullable: false),
+                    ApplicationFormId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadedFiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UploadedFiles_ApplicationForms_ApplicationFormId",
+                        column: x => x.ApplicationFormId,
+                        principalTable: "ApplicationForms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Answers",
                 columns: table => new
                 {
@@ -288,8 +284,7 @@ namespace VacancyManagementApp.Persistence.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QuestionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsCorrect = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -311,11 +306,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                 name: "IX_ApplicationForms_AppUserId",
                 table: "ApplicationForms",
                 column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApplicationForms_UploadedFileId",
-                table: "ApplicationForms",
-                column: "UploadedFileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationForms_VacancyId",
@@ -375,6 +365,12 @@ namespace VacancyManagementApp.Persistence.Migrations
                 name: "IX_Results_VacancyId",
                 table: "Results",
                 column: "VacancyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UploadedFiles_ApplicationFormId",
+                table: "UploadedFiles",
+                column: "ApplicationFormId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -401,6 +397,9 @@ namespace VacancyManagementApp.Persistence.Migrations
                 name: "Results");
 
             migrationBuilder.DropTable(
+                name: "UploadedFiles");
+
+            migrationBuilder.DropTable(
                 name: "Questions");
 
             migrationBuilder.DropTable(
@@ -411,9 +410,6 @@ namespace VacancyManagementApp.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "UploadedFiles");
 
             migrationBuilder.DropTable(
                 name: "Vacancies");

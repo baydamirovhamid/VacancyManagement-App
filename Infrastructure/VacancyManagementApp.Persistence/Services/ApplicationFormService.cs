@@ -53,7 +53,8 @@ namespace VacancyManagementApp.Persistence.Services
             return new CreateApplicationFormResponseDto
             {
                 Success = true,
-                Message = "Application form successfully created."
+                Message = "Application form successfully created.",
+                Id = applicationForm.Id
             };
         }
 

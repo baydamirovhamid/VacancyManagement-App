@@ -11,15 +11,16 @@ namespace VacancyManagementApp.Application.Features.Commands.UploadFile
     {
         private readonly IFileUploadService _fileUploadService;
         private readonly IFileUploadWriteRepository _fileUploadWriteRepository;
-        private readonly UserManager<VacancyManagementApp.Domain.Entities.Identity.AppUser> _userManager;
+       private readonly IApplicationFormReadRepository _applicationFormReadRepository;
 
         public UploadFileCommandHandler(IFileUploadService fileUploadService,
             IFileUploadWriteRepository fileUploadWriteRepository,
-            UserManager<Domain.Entities.Identity.AppUser> userManager)
+            UserManager<Domain.Entities.Identity.AppUser> userManager,
+            IApplicationFormReadRepository applicationFormReadRepository)
         {
             _fileUploadService = fileUploadService;
             _fileUploadWriteRepository = fileUploadWriteRepository;
-            _userManager = userManager;
+            _applicationFormReadRepository = applicationFormReadRepository;
         }
 
         public async Task<UploadFileCommandResponse> Handle(UploadFileCommandRequest request, CancellationToken cancellationToken)
@@ -36,15 +37,15 @@ namespace VacancyManagementApp.Application.Features.Commands.UploadFile
             }
 
             string fileName = Guid.NewGuid() + extension;
-            var user=await _userManager.FindByIdAsync(request.AppUserId);
-            string filePath = await _fileUploadService.SaveFileAsync(request.File, fileName,user.Email );
+            var form=await _applicationFormReadRepository.GetByIdAsync(request.ApplicationFormId);
+            string filePath = await _fileUploadService.SaveFileAsync(request.File, fileName,form.Email );
 
             var uploadedFile = new UploadedFile
             {
                 FileName = fileName,
                 FilePath = filePath,
                 FileSize = request.File.Length,
-                
+                ApplicationFormId=form.Id
             };
 
             await _fileUploadWriteRepository.AddAsync(uploadedFile);

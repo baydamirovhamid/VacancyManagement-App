@@ -12,8 +12,8 @@ using VacancyManagementApp.Persistence.Contexts;
 namespace VacancyManagementApp.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241122104159_mig1")]
-    partial class mig1
+    [Migration("20241122141844_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -149,9 +149,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
@@ -166,7 +163,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AppUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -188,20 +184,12 @@ namespace VacancyManagementApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("UploadedFileId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("VacancyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("UploadedFileId");
 
                     b.HasIndex("VacancyId");
 
@@ -326,9 +314,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("VacancyId")
                         .HasColumnType("uniqueidentifier");
 
@@ -360,9 +345,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                     b.Property<int>("TrueQuestionCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("VacancyId")
                         .HasColumnType("uniqueidentifier");
 
@@ -381,6 +363,9 @@ namespace VacancyManagementApp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("ApplicationFormId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -396,6 +381,9 @@ namespace VacancyManagementApp.Persistence.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationFormId")
+                        .IsUnique();
 
                     b.ToTable("UploadedFiles");
                 });
@@ -428,9 +416,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -503,13 +488,7 @@ namespace VacancyManagementApp.Persistence.Migrations
                 {
                     b.HasOne("VacancyManagementApp.Domain.Entities.Identity.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VacancyManagementApp.Domain.Entities.UploadedFile", "UploadedFile")
-                        .WithMany()
-                        .HasForeignKey("UploadedFileId");
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("VacancyManagementApp.Domain.Entities.Vacancy", "Vacancy")
                         .WithMany()
@@ -518,8 +497,6 @@ namespace VacancyManagementApp.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
-
-                    b.Navigation("UploadedFile");
 
                     b.Navigation("Vacancy");
                 });
@@ -554,9 +531,22 @@ namespace VacancyManagementApp.Persistence.Migrations
                     b.Navigation("Vacancy");
                 });
 
+            modelBuilder.Entity("VacancyManagementApp.Domain.Entities.UploadedFile", b =>
+                {
+                    b.HasOne("VacancyManagementApp.Domain.Entities.ApplicationForm", "ApplicationForm")
+                        .WithOne("UploadedFile")
+                        .HasForeignKey("VacancyManagementApp.Domain.Entities.UploadedFile", "ApplicationFormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationForm");
+                });
+
             modelBuilder.Entity("VacancyManagementApp.Domain.Entities.ApplicationForm", b =>
                 {
                     b.Navigation("Results");
+
+                    b.Navigation("UploadedFile");
                 });
 
             modelBuilder.Entity("VacancyManagementApp.Domain.Entities.Question", b =>

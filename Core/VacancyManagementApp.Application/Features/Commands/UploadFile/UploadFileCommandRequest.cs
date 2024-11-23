@@ -10,7 +10,7 @@ namespace VacancyManagementApp.Application.Features.Commands.UploadFile
 {
     public class UploadFileCommandRequest : IRequest<UploadFileCommandResponse>
     {
-        public string AppUserId { get; set; }
+        public Guid ApplicationFormId { get; set; }
         public IFormFile File { get; set; }
 
     }

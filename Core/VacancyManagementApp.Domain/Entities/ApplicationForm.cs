@@ -19,7 +19,6 @@ namespace VacancyManagementApp.Domain.Entities
         public Vacancy Vacancy { get; set; }
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
-        public Guid? UploadedFileId { get; set; }
         public UploadedFile? UploadedFile { get; set; }
         public List<Result> Results { get; set; }
     }
