@@ -18,7 +18,7 @@ namespace VacancyManagementApp.API.Controllers
         }
 
         [HttpPost("create-answer")]
-        public async Task<IActionResult> CreateAsnwer(CreateAnswerCommandRequest createAnswerRequest)
+        public async Task<IActionResult> CreateAnswer(CreateAnswerCommandRequest createAnswerRequest)
         {
             var response = await _mediator.Send(createAnswerRequest);
             return Ok(response);

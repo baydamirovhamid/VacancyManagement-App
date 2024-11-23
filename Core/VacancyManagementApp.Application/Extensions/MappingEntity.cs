@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using VacancyManagementApp.Application.DTOs.Answer;
 using VacancyManagementApp.Application.DTOs.ApplicationForm;
 using VacancyManagementApp.Application.DTOs.File;
@@ -14,7 +13,7 @@ using VacancyManagementApp.Application.Features.Commands.AppUser.CreateUser;
 using VacancyManagementApp.Application.Features.Commands.Question.Create;
 using VacancyManagementApp.Application.Features.Commands.Question.Remove;
 using VacancyManagementApp.Application.Features.Commands.Question.Update;
-using VacancyManagementApp.Application.Features.Commands.Result;
+using VacancyManagementApp.Application.Features.Commands.Result.Create;
 using VacancyManagementApp.Application.Features.Commands.Result.Update;
 using VacancyManagementApp.Application.Features.Commands.Vacancy.CreateVacancy;
 using VacancyManagementApp.Application.Features.Commands.Vacancy.RemoveVacancy;
@@ -95,9 +94,7 @@ namespace VacancyManagementApp.Application.Extensions
 
             CreateMap<CreateApplicationFormCommandRequest, CreateApplicationFormDto>();
             CreateMap<CreateApplicationFormDto, ApplicationForm>();
-            CreateMap<CreateApplicationFormResponseDto, CreateApplicationFormCommandResponse>()
-                .ForMember(dest => dest.Success, opt => opt.MapFrom(src => true))
-                .ForMember(dest => dest.Message, opt => opt.MapFrom(src => "Application form successfully created."));
+            CreateMap<CreateApplicationFormResponseDto, CreateApplicationFormCommandResponse>();
 
 
             CreateMap<UploadedFile, GetFileByOwnerDto>();

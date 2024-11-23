@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using VacancyManagementApp.Application.Abstractions.Services;
 using VacancyManagementApp.Application.DTOs.Result;
 
-namespace VacancyManagementApp.Application.Features.Commands.Result
+namespace VacancyManagementApp.Application.Features.Commands.Result.Create
 {
     public class CreateResultCommandHandler : IRequestHandler<CreateResultCommandRequest, CreateResultCommandResponse>
     {
@@ -22,7 +22,7 @@ namespace VacancyManagementApp.Application.Features.Commands.Result
         }
         public async Task<CreateResultCommandResponse> Handle(CreateResultCommandRequest request, CancellationToken cancellationToken)
         {
-            var createDto =  _mapper.Map<ResultCreateDto>(request);
+            var createDto = _mapper.Map<ResultCreateDto>(request);
             var responseDto = await _resultService.CreateResultAsync(createDto);
             return _mapper.Map<CreateResultCommandResponse>(responseDto);
         }
