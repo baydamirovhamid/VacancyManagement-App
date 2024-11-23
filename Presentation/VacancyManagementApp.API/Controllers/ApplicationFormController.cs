@@ -8,30 +8,30 @@ using VacancyManagementApp.Application.Features.Queries.GetAllUser;
 namespace VacancyManagementApp.API.Controllers
 {
 
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ApplicationFormController : ControllerBase
-    {
-        private readonly IMediator _mediator;
+    //[ApiController]
+    //[Route("api/[controller]")]
+    //public class ApplicationFormController : ControllerBase
+    //{
+    //    private readonly IMediator _mediator;
 
-        public ApplicationFormController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    //    public ApplicationFormController(IMediator mediator)
+    //    {
+    //        _mediator = mediator;
+    //    }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllApplicationFormQueryRequest getAllApplicationFormQueryRequest)
-        {
-            var response = await _mediator.Send(getAllApplicationFormQueryRequest);
-            return Ok(response);
-        }
+    //    [HttpGet]
+    //    public async Task<IActionResult> GetAll([FromQuery] GetAllApplicationFormQueryRequest getAllApplicationFormQueryRequest)
+    //    {
+    //        var response = await _mediator.Send(getAllApplicationFormQueryRequest);
+    //        return Ok(response);
+    //    }
 
-        [HttpPost]
-        [Route("create-form")]
-        public async Task<IActionResult> CreateApplicationForm([FromBody] CreateApplicationFormCommandRequest createApplicationFormCommandRequest)
-        {
-            CreateApplicationFormCommandResponse response = await _mediator.Send(createApplicationFormCommandRequest);
-            return Ok(response);
-        }
-    }
+    //    [HttpPost]
+    //    [Route("create-form")]
+    //    public async Task<IActionResult> CreateApplicationForm([FromBody] CreateApplicationFormCommandRequest createApplicationFormCommandRequest)
+    //    {
+    //        CreateApplicationFormCommandResponse response = await _mediator.Send(createApplicationFormCommandRequest);
+    //        return Ok(response);
+    //    }
+    //}
 }

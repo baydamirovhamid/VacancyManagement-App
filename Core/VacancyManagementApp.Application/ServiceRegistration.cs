@@ -12,7 +12,6 @@ namespace VacancyManagementApp.Application
         {
             collection.AddMediatR(typeof(ServiceRegistration).Assembly);
             collection.AddValidatorsFromAssemblyContaining<CreateFormValidator>();
-
             collection.AddAutoMapper(typeof(MappingEntity).Assembly);
 
         }
