@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VacancyManagementApp.Application.Features.Commands.ApplicationForm.CreateApplicationForm;
+using VacancyManagementApp.Application.Features.Queries.GetAllApplicationForm;
+using VacancyManagementApp.Application.Features.Queries.GetAllVacancy;
 
 namespace VacancyManagementApp.API.Controllers
 {
@@ -19,6 +21,13 @@ namespace VacancyManagementApp.API.Controllers
         public async Task<IActionResult> CreateApplicationForm([FromBody] CreateApplicationFormCommandRequest request)
         {
             var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllApplicationForm([FromQuery] GetAllApplicationFormQueryRequest getAllApplicationFormQueryRequest)
+        {
+            var response = await _mediator.Send(getAllApplicationFormQueryRequest);
             return Ok(response);
         }
     }
