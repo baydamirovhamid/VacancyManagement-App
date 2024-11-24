@@ -30,7 +30,7 @@ namespace VacancyManagementApp.API.Controllers
         }
 
 
-        [HttpGet("{Id}")]
+        [HttpGet("{OwnerId}")]
         public async Task<IActionResult> GetByOwner([FromRoute]GetFileQueryRequest getFileQueryRequest)
         {
             var response=await _mediator.Send(getFileQueryRequest);

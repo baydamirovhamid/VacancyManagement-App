@@ -10,7 +10,7 @@ namespace VacancyManagementApp.Application.DTOs.Result
         public int Point { get; set; }
         public Domain.Entities.Vacancy Vacancy { get; set; }
         public Guid VacancyId { get; set; }
-        public AppUser AppUser { get; set; }
-        public string AppUserId { get; set; }
+        public Domain.Entities.ApplicationForm ApplicationForm { get; set; }
+        public Guid ApplicationFormId { get; set; }
     }
 }

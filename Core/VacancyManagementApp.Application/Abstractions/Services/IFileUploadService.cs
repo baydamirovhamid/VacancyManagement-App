@@ -13,6 +13,6 @@ namespace VacancyManagementApp.Application.Abstractions.Services
         string GetValidFileExtension(IFormFile file);
         bool IsFileSizeValid(IFormFile file, long maxSize);
         Task<string> SaveFileAsync(IFormFile file, string fileName, string candidateEmail);
-        Task<GetFileByOwnerDto> GetById(Guid id);
+        Task<GetFileByOwnerDto> GetByOwnerId(Guid ownerId);
     }
 }
