@@ -22,9 +22,9 @@ namespace VacancyManagementApp.Persistence.Services
             _mailService = mailService;
         }
 
-        public async Task<GetFileByOwnerDto> GetById(Guid id)
+        public async Task<GetFileByOwnerDto> GetByOwnerId(Guid ownerId)
         {
-          var entity= _readRepository.GetByIdAsync(id);
+          var entity= await _readRepository.GetAll().FirstOrDefaultAsync(x=>x.ApplicationFormId==ownerId);
             return _mapper.Map<GetFileByOwnerDto>(entity);
         }
 

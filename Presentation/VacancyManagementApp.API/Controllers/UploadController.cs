@@ -26,11 +26,11 @@ namespace VacancyManagementApp.API.Controllers
             {
                 return Ok(new { response.Message, response.FileName });
             }
-            return BadRequest(response.Message);
+            return BadRequest(response);
         }
 
 
-        [HttpGet("{Id}")]
+        [HttpGet("{OwnerId}")]
         public async Task<IActionResult> GetByOwner([FromRoute]GetFileQueryRequest getFileQueryRequest)
         {
             var response=await _mediator.Send(getFileQueryRequest);

@@ -42,6 +42,7 @@ namespace VacancyManagementApp.Persistence.Services
                 {
                     Success = false,
                     Message = validationResult.Errors[0].ErrorMessage,
+                    Errors=validationResult.Errors
                 };
             }
 

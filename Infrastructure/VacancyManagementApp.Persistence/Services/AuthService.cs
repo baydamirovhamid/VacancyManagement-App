@@ -92,7 +92,6 @@ namespace VacancyManagementApp.Persistence.Services
 
                 throw new Exception("User authentication error", ex);
             }
-
             catch (Exception ex)
             {
                 throw new Exception("Unexpected error occured!", ex);

@@ -23,7 +23,7 @@ namespace VacancyManagementApp.Application.Features.Queries.GetAllFile
 
        async Task<GetFileQueryResponse> IRequestHandler<GetFileQueryRequest, GetFileQueryResponse>.Handle(GetFileQueryRequest request, CancellationToken cancellationToken)
         {
-            var getFileDto = await _uploadService.GetById(request.Id);
+            var getFileDto = await _uploadService.GetByOwnerId(request.OwnerId);
             var response=_mapper.Map<GetFileQueryResponse>(getFileDto);
             return response;
         }

@@ -9,6 +9,6 @@ namespace VacancyManagementApp.Application.Features.Queries.GetAllFile
 {
     public class GetFileQueryRequest:IRequest<GetFileQueryResponse>
     {
-        public Guid Id { get; set; }
+        public Guid OwnerId { get; set; }
     }
 }
