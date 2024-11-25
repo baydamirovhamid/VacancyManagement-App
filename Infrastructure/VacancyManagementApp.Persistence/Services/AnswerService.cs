@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VacancyManagementApp.Application.Abstractions.Services;
 using VacancyManagementApp.Application.DTOs.Answer;
+using VacancyManagementApp.Application.DTOs.ApplicationForm;
 using VacancyManagementApp.Application.DTOs.Vacancy;
 using VacancyManagementApp.Application.Repositories;
 using VacancyManagementApp.Domain.Entities;
@@ -54,6 +56,11 @@ namespace VacancyManagementApp.Persistence.Services
             await _answerWriteRepository.SaveAsync();
 
             return model;
+        }
+        public async Task<List<GetAllAnswerDto>> GetAllAnswer()
+        {
+            var entities = await _answerReadRepository.GetAll().ToListAsync();
+            return _mapper.Map<List<GetAllAnswerDto>>(entities);
         }
     }
 }

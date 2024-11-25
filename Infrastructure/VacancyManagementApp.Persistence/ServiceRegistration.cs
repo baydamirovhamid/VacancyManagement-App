@@ -17,7 +17,7 @@ namespace VacancyManagementApp.Persistence
         public static void AddPersistenceServices(this IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.ConnectionString2));
+                options.UseSqlServer(Configuration.ConnectionString));
 
 
             services.AddIdentity<AppUser, AppRole>(options =>

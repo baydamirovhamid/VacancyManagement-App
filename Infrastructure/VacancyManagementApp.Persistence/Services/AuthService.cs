@@ -65,38 +65,21 @@ namespace VacancyManagementApp.Persistence.Services
 
         public async Task<Token> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTime)
         {
-            try
-            {
-                AppUser user = await _userManager.FindByNameAsync(usernameOrEmail);
-                if (user == null)
-                    user = await _userManager.FindByEmailAsync(usernameOrEmail);
+            AppUser user = await _userManager.FindByNameAsync(usernameOrEmail);
+            if (user == null)
+                user = await _userManager.FindByEmailAsync(usernameOrEmail);
 
-                if (user == null)
-                    throw new NotFoundUserException();
+            if (user == null)
+                throw new NotFoundUserException();
 
-                SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
-                if (result.Succeeded)
-                {
-                    Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
-                    await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);
-                    return token;
-                }
-                throw new AuthenticationErrorException();
-            }
-            catch (NotFoundUserException ex)
+            SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+            if (result.Succeeded)      
             {
-                throw new Exception("Kullanıcı bulunamadı.", ex);
+                Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
+                await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);
+                return token;
             }
-            catch (AuthenticationErrorException ex)
-            {
-
-                throw new Exception("Kimlik doğrulama hatası.", ex);
-            }
-        
-            catch (AuthenticationErrorException ex)
-            {
-                throw new Exception("Bir hata oluştu.", ex);
-            }
+            throw new AuthenticationErrorException();
         }
 
 

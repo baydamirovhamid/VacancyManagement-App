@@ -61,6 +61,9 @@ namespace VacancyManagementApp.Application.Extensions
             CreateMap<GetAllApplicationFormQueryRequest, GetAllApplicationFormDto>();
             CreateMap<ApplicationForm, GetAllApplicationFormDto>();
 
+            CreateMap<GetAllApplicationFormQueryRequest, GetAllAnswerDto>();
+            CreateMap<Answer, GetAllAnswerDto>();
+
             CreateMap<Vacancy, SingleVacancyDto>(); 
             CreateMap<GetByIdVacancyQueryRequest, SingleVacancyDto>();
             CreateMap<SingleVacancyDto,GetByIdVacancyQueryResponse>();
@@ -113,24 +116,3 @@ namespace VacancyManagementApp.Application.Extensions
         }
     }
 }
-
-
-
-
-
-//{
-//  "nameSurname": "Hamid Baydamirov",
-//  "username": "hamid_baydamirov",
-//  "email": "hamid.baydamirov@example.com",
-//  "password": "StrongPassword123!",
-//  "confirmPassword": "StrongPassword123!"
-//}
-
-
-//{
-//    "nameSurname": "testtest1",
-//  "username": "test1",
-//  "email": "b.hamidd999@gmail.com",
-//  "password": "hb001001",
-//  "confirmPassword": "hb001001"
-//}
